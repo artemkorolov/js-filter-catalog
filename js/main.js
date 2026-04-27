@@ -56,3 +56,54 @@ const products = [
 ];
 
 console.log("Data loaded:", products);
+
+const productGrid = document.getElementById('productGrid');
+
+function renderProducts(items) {
+	if (!productGrid) {
+		console.warn("productGrid not found in the DOM");
+		return;
+	}
+
+	productGrid.innerHTML = '';
+
+	items.forEach(product => {
+		const card = document.createElement('div');
+		card.classList.add('product-card');
+
+		const img = document.createElement('img');
+		img.src = product.image;
+		img.alt = product.title;
+		card.appendChild(img);
+
+		const title = document.createElement('h3');
+		title.textContent = product.title;
+		card.appendChild(title);
+
+		const info = document.createElement('p');
+		info.textContent = `${product.brand} | ${product.category}`;
+		card.appendChild(info);
+
+		const price = document.createElement('span');
+		price.textContent = `$${product.price}`;
+		card.appendChild(price);
+
+		const stockStatus = document.createElement('p');
+		stockStatus.classList.add('stock-status');
+
+		if (product.inStock) {
+			stockStatus.textContent = '✅ In Stock';
+			stockStatus.classList.add('in-stock');
+		} else {
+			stockStatus.textContent = '❌ Out of Stock';
+			stockStatus.classList.add('out-of-stock');
+		}
+
+		card.appendChild(stockStatus);
+
+		productGrid?.appendChild(card);
+	});
+
+}
+
+renderProducts(products);
