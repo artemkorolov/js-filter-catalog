@@ -58,6 +58,7 @@ const products = [
 console.log("Data loaded:", products);
 
 const productGrid = document.getElementById('productGrid');
+const searchInput = document.getElementById('searchInput');
 
 function renderProducts(items) {
 	if (!productGrid) {
@@ -107,3 +108,23 @@ function renderProducts(items) {
 }
 
 renderProducts(products);
+
+
+function initSearch() {
+	if (!(searchInput instanceof HTMLInputElement)) {
+		console.warn('searchInput not found in the DOM');
+		return;
+	}
+
+	searchInput.addEventListener('input', () => {
+		const searchTerm = searchInput.value.toLowerCase().trim();
+		const filtered = products.filter(product =>
+			product.title.toLowerCase().includes(searchTerm)
+		);
+
+		renderProducts(filtered);
+	});
+
+}
+
+initSearch();
