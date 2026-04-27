@@ -55,7 +55,7 @@ const products = [
 	},
 ];
 
-console.log("Data loaded:", products);
+// console.log("Data loaded:", products);
 
 const productGrid = document.getElementById('productGrid');
 const searchInput = document.getElementById('searchInput');
