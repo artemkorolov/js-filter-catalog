@@ -55,10 +55,9 @@ const products = [
 	},
 ];
 
-// console.log("Data loaded:", products);
-
 const productGrid = document.getElementById('productGrid');
 const searchInput = document.getElementById('searchInput');
+const brandContainer = document.getElementById('brandFilters');
 
 function renderProducts(items) {
 	if (!productGrid) {
@@ -109,7 +108,6 @@ function renderProducts(items) {
 
 renderProducts(products);
 
-
 function initSearch() {
 	if (!(searchInput instanceof HTMLInputElement)) {
 		console.warn('searchInput not found in the DOM');
@@ -128,3 +126,51 @@ function initSearch() {
 }
 
 initSearch();
+
+function renderBrandFilters() {
+	if (!brandContainer) return;
+
+	const allBrands = products.map(product => product.brand);
+
+	const uniqueBrands = ['all', ...new Set(allBrands)];
+
+	brandContainer.innerHTML = '';
+
+	uniqueBrands.forEach(brand => {
+		const btn = document.createElement('button');
+		btn.className = 'brand-btn';
+		btn.dataset.brand = brand;
+
+		btn.textContent = brand === 'all' ? 'All Brands' : brand;
+
+		brandContainer.appendChild(btn);
+	});
+}
+
+renderBrandFilters();
+
+if (brandContainer) {
+	brandContainer.addEventListener('click', (event) => {
+		if (event.target instanceof HTMLElement) {
+			const clickedBtn = event.target.closest('.brand-btn');
+
+			if (clickedBtn instanceof HTMLElement) {
+				const selectedBrand = clickedBtn.dataset.brand;
+
+				const filtered = selectedBrand === 'all'
+					? products
+					: products.filter(product => {
+						return product.brand === selectedBrand;
+					});
+
+				renderProducts(filtered);
+			}
+
+			document.querySelectorAll('.brand-btn').forEach(btn => {
+				btn.classList.remove('active');
+			});
+
+			clickedBtn?.classList.add('active');
+		}
+	});
+}
