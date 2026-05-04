@@ -128,3 +128,26 @@ function initSearch() {
 }
 
 initSearch();
+
+function renderBrandFilters() {
+	const brandContainer = document.getElementById('brandFilters');
+	if (!brandContainer) return;
+
+	const allBrands = products.map(product => product.brand);
+
+	const uniqueBrands = ['all', ...new Set(allBrands)];
+
+	brandContainer.innerHTML = '';
+
+	uniqueBrands.forEach(brand => {
+		const btn = document.createElement('button');
+		btn.className = 'brand-btn';
+		btn.dataset.brand = brand;
+
+		btn.textContent = brand === 'all' ? 'All Brands' : brand;
+
+		brandContainer.appendChild(btn);
+	});
+}
+
+renderBrandFilters();

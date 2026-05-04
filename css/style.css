@@ -100,3 +100,33 @@ body {
 .stock-status.out-of-stock {
 	color: #e74c3c;
 }
+
+h4 {
+	margin-top: 20px;
+}
+
+.brand-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-top: 10px;
+}
+
+.brand-btn {
+	padding: 8px 12px;
+	background-color: #f0f0f0;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	cursor: pointer;
+	text-align: left;
+}
+
+.brand-btn:hover {
+	background-color: #e0e0e0;
+}
+
+.brand-btn.active {
+	background-color: #27ae60;
+	color: #fff;
+	border-color: #27ae60;
+}
