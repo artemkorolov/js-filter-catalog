@@ -55,10 +55,9 @@ const products = [
 	},
 ];
 
-// console.log("Data loaded:", products);
-
 const productGrid = document.getElementById('productGrid');
 const searchInput = document.getElementById('searchInput');
+const brandContainer = document.getElementById('brandFilters');
 
 function renderProducts(items) {
 	if (!productGrid) {
@@ -130,7 +129,6 @@ function initSearch() {
 initSearch();
 
 function renderBrandFilters() {
-	const brandContainer = document.getElementById('brandFilters');
 	if (!brandContainer) return;
 
 	const allBrands = products.map(product => product.brand);
@@ -151,3 +149,32 @@ function renderBrandFilters() {
 }
 
 renderBrandFilters();
+
+if (brandContainer) {
+	brandContainer.addEventListener('click', (event) => {
+		if (event.target instanceof HTMLElement) {
+			const clickedBtn = event.target.closest('.brand-btn');
+
+			if (clickedBtn instanceof HTMLElement) {
+				const selectedBrand = clickedBtn.dataset.brand;
+				console.log(selectedBrand);
+
+				const filtered = selectedBrand === 'all'
+					? products
+					: products.filter(product => {
+						return product.brand === selectedBrand;
+					});
+
+				renderProducts(filtered);
+				console.log(filtered);
+			}
+
+			document.querySelectorAll('.brand-btn').forEach(btn => {
+				btn.classList.remove('active');
+
+			});
+			clickedBtn?.classList.add('active');
+
+		}
+	});
+}
