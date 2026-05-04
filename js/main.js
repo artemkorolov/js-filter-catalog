@@ -108,7 +108,6 @@ function renderProducts(items) {
 
 renderProducts(products);
 
-
 function initSearch() {
 	if (!(searchInput instanceof HTMLInputElement)) {
 		console.warn('searchInput not found in the DOM');
@@ -157,7 +156,6 @@ if (brandContainer) {
 
 			if (clickedBtn instanceof HTMLElement) {
 				const selectedBrand = clickedBtn.dataset.brand;
-				console.log(selectedBrand);
 
 				const filtered = selectedBrand === 'all'
 					? products
@@ -166,15 +164,13 @@ if (brandContainer) {
 					});
 
 				renderProducts(filtered);
-				console.log(filtered);
 			}
 
 			document.querySelectorAll('.brand-btn').forEach(btn => {
 				btn.classList.remove('active');
-
 			});
-			clickedBtn?.classList.add('active');
 
+			clickedBtn?.classList.add('active');
 		}
 	});
 }
